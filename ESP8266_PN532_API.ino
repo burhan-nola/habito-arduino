@@ -7,23 +7,25 @@
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Ruang Guru Lantai 3";
-const char* password = "NorthernLight2020";
-String idDevice = "habito_002";
+const char* ssid = "Bukan WiFi Gratis";
+const char* password = "langsungconnect";
+String idDevice = "habito_001";
+
+
 String url = "https://api.habito.id";
 
 PN532_I2C pn532i2c(Wire);
 PN532 nfc(pn532i2c);
 
-//int led1 = D6; //red
-//int led2 = D7; //yellow
-//int led3 = D5; //green
-//int led4 = D8; //blue
-
-int led1 = D5; //red
-int led2 = D6; //yellow
-int led3 = D7; //green
+int led1 = D6; //red
+int led2 = D7; //yellow
+int led3 = D5; //green
 int led4 = D8; //blue
+
+//int led1 = D5; //red
+//int led2 = D6; //yellow
+//int led3 = D7; //green
+//int led4 = D8; //blue
 
 String userRFID = "";
 
@@ -284,6 +286,7 @@ const unsigned long RFIDPollInterval = 50000;
 void loop() {
   if(WiFi.status() != WL_CONNECTED){
     connectWiFi();
+    online();
   }
   unsigned long currentMillis = millis();
 
@@ -317,7 +320,7 @@ void loop() {
     if( pressDuration > SHORT_PRESS_TIME )
       {
         Serial.println("A Long press is detected");
-        WiFi.disconnect();
+//        WiFi.disconnect();
         digitalWrite(led1,HIGH);
         digitalWrite(led2,HIGH);
         digitalWrite(led3,HIGH);
@@ -327,7 +330,7 @@ void loop() {
         digitalWrite(led2,LOW);
         digitalWrite(led3,LOW);
         digitalWrite(led4,LOW);
-        connectWiFi();
+//        connectWiFi();
       }
   }
   lastState = currentState;
